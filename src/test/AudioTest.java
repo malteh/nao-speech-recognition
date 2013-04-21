@@ -14,7 +14,7 @@ import javax.sound.sampled.TargetDataLine;
 public class AudioTest {
 
 	public static void main(String[] args) {
-		// test();
+		test();
 		try {
 			mixerInfo();
 		} catch (LineUnavailableException e) {
