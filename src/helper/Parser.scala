@@ -1,5 +1,7 @@
 package helper
 
+import java.util.regex.Pattern
+
 object Parser extends App {
   val ERR = -1
 
@@ -20,16 +22,20 @@ object Parser extends App {
   }
 
   def extractUtterance(in: String) = {
-    extract(in, ".*utterance\":\"([a-zA-Z ]+)\",\"confidence.*")
-  }
+    extract(in, ".*utterance\":\"(.*)\",\"confidence.*")
+  }  
+  
+	def extract(in:String, regex:String):String = {
+	 
+		var ret = "";
+		val p = Pattern.compile(regex);
+		val m = p.matcher(in);
 
-  def extract(in: String, pattern: String): String = {
-    var ret = ""
-    pattern.r.findAllIn(in).matchData foreach {
-      m => ret = m.group(1)
-    }
-    ret
-  }
+		if (m.find()) {
+			ret = m.group(1);
+		}
+		ret
+	}
 
   def test() = {
     val in = "{\"status\":0,\"id\":\"d7cfe0647045cb1462f892e468fa3134-1\",\"hypotheses\":[{\"utterance\":\"rar rar rar rar rar rar rar\",\"confidence\":0.5146254}]}"
