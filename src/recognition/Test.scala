@@ -7,14 +7,15 @@ import helper.Parser._
 import javaFlacEncoder.FLAC_FileEncoder
 import javaFlacEncoder.EncodingConfiguration
 import scala.collection.mutable.StringBuilder
+import helper.Audio
 
 object Test extends App {
 
   val ADDRESS = "http://www.google.com/speech-api/v1/recognize?lang=de-de&client=chromium"
   val USER_AGENT = "Mozilla/5.0"
-  val CONTENT_TYPE = "audio/x-flac; rate=44100"
+  val CONTENT_TYPE = "audio/x-flac; rate="
 
-  def recognize(filename: String): Info = {
+  def recognize(filename: String, sampleRate:Int): Info = {
     val url = new URL(ADDRESS)
 
     val connection: HttpURLConnection = url.openConnection.asInstanceOf[HttpURLConnection]
@@ -30,7 +31,7 @@ object Test extends App {
     val fileInputStream = new FileInputStream(file)
 
     connection.setRequestProperty("User-Agent", USER_AGENT)
-    connection.setRequestProperty("Content-Type", CONTENT_TYPE)
+    connection.setRequestProperty("Content-Type", CONTENT_TYPE+sampleRate)
     connection.setRequestProperty("Accept-Charset", "UTF-8")
     //connection.setRequestProperty("Content-Length", "" + fileInputStream.available())
 
@@ -65,12 +66,12 @@ object Test extends App {
     Info(text, status, confidence)
   }
 
-//  val flacEncoder = new FLAC_FileEncoder()
-//  val inputFile = new File("recordings/01.wav")
-//  val outputFile = new File("recordings/01.flac")
-//
-//  println(flacEncoder.encode(inputFile, outputFile))
+  val flacEncoder = new FLAC_FileEncoder()
+  val inputFile = new File("recordings/01.wav")
+  val outputFile = new File("recordings/01.flac")
 
-  println(recognize("recordings/01.flac"))
+  println(flacEncoder.encode(inputFile, outputFile))
+
+  println(recognize("recordings/01.flac", Audio.sampleRate(inputFile)))
 
 }

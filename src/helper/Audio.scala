@@ -8,13 +8,13 @@ object Audio extends App {
   
   test
   
-  def sampleRate(wavFile: String): Int = {
-    val audioInputStream = AudioSystem.getAudioInputStream(new File(wavFile))
+  def sampleRate(wavFile: File): Int = {
+    val audioInputStream = AudioSystem.getAudioInputStream(wavFile)
     val audioFormat = audioInputStream.getFormat
     audioFormat.getSampleRate.toInt
   }
   
   def test() = {
-    println(sampleRate("recordings/01.wav"))
+    println(sampleRate(new File("recordings/01.wav")))
   }
 }

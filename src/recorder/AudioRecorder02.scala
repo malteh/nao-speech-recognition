@@ -140,7 +140,7 @@ class AudioRecorder02 extends JFrame("Copyright 2003, R.G.Baldwin") {
   // allowable parameter values, which are shown
   // in comments following the declarations.
   def getAudioFormat: AudioFormat = {
-    val sampleRate = 16000.0F;
+    val sampleRate = 44100.0F;
     // 8000,11025,16000,22050,44100
     val sampleSizeInBits = 16;
     // 8,16
@@ -165,17 +165,17 @@ class AudioRecorder02 extends JFrame("Copyright 2003, R.G.Baldwin") {
       // based on the selected radio button.
 
       fileType = AudioFileFormat.Type.WAVE;
-      audioFile = new File("junk.wav");
+      audioFile = new File("recordings/01.wav");
       try {
         targetDataLine.open(audioFormat);
         targetDataLine.start();
         AudioSystem.write(new AudioInputStream(targetDataLine),
           fileType, audioFile);
-        val flacEncoder = new FLAC_FileEncoder();
-        val inputFile = new File("junk.wav");
-        val outputFile = new File("hello.flac");
-
-        flacEncoder.encode(inputFile, outputFile);
+//        val flacEncoder = new FLAC_FileEncoder();
+//        val inputFile = new File("recordings/junk.wav");
+//        val outputFile = new File("hello.flac");
+//
+//        flacEncoder.encode(inputFile, outputFile);
       } catch {
         case e: Exception => e.printStackTrace();
       } // end catch
