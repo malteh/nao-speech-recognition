@@ -11,7 +11,7 @@ object RemoteTest extends App{
   val config = ConfigFactory.load()
   val system = ActorSystem("remoting",config.getConfig("remoting").withFallback(config))
  
-  val naoActor = system.actorFor("akka://naogateway@192.168.1.100:2552/user/nila")
+  val naoActor = system.actorFor("akka://naogateway@192.168.1.100:2550/user/hanna")
   system.actorOf(Props[MyResponseTestActor])
   
   class MyResponseTestActor extends Actor  {
@@ -23,9 +23,19 @@ object RemoteTest extends App{
         trace(noResponse)
         trace(vision)
 //        response ! Call('ALTextToSpeech, 'getVolume)
-        while(true)
-        noResponse ! Call('ALTextToSpeech, 'say, List(readLine))
-//        response ! Call('ALTextToSpeech, 'say, List("Stehen bleiben!"))
+//        xresponse ! Call('ALTextToSpeech, 'getAvailableVoices)
+//        noResponse ! Call('ALTextToSpeech, 'setVoice, List("Sarah22Enhanced"))
+        
+        //while(true)response ! Call('ALTextToSpeech, 'getVoices)
+//        noResponse ! Call('ALTextToSpeech, 'say, List("aufstehen"))
+//        //ALRobotPostureProxy.goToPosture("StandInit", 0.5f)
+//        noResponse ! Call('ALRobotPosture , 'goToPosture, List("StandInit", 0.8f))
+//        noResponse ! Call('ALTextToSpeech, 'say, List("hinsetzen"))
+//        noResponse ! Call('ALRobotPosture , 'goToPosture, List("Sit", 0.8f))
+        //
+        noResponse ! Call('ALTextToSpeech, 'say, List("bleibe locker"))
+        noResponse ! Call('ALMotion , 'setStiffnesses, List("Body",0.0f))
+        
 //        vision ! VisionCall(Resolutions.k4VGA,ColorSpaces.kBGR,Frames._20)
 //        vision ! RawVisionCall(Resolutions.k4VGA,ColorSpaces.kBGR,Frames._20)
       }    
