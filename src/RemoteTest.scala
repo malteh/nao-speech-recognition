@@ -6,6 +6,7 @@ import akka.actor.Props
 import naogateway.value.NaoMessages._
 import naogateway.value.NaoMessages.Conversions._
 import naogateway.value.NaoVisionMessages._
+import recognition.Converter
 
 object RemoteTest extends App{  
   val config = ConfigFactory.load()
@@ -33,7 +34,8 @@ object RemoteTest extends App{
 //        noResponse ! Call('ALTextToSpeech, 'say, List("hinsetzen"))
 //        noResponse ! Call('ALRobotPosture , 'goToPosture, List("Sit", 0.8f))
         //
-        noResponse ! Call('ALTextToSpeech, 'say, List("bleibe locker"))
+        for (m <- Converter.convert("sage bleibe locker")) noResponse ! m
+        
         noResponse ! Call('ALMotion , 'setStiffnesses, List("Body",0.0f))
         
 //        vision ! VisionCall(Resolutions.k4VGA,ColorSpaces.kBGR,Frames._20)
