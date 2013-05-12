@@ -1,3 +1,6 @@
 package recognition
 
-case class Info(val text: String, status:Int, confidence:Double)
+/**
+ * Fasst das Erkennungsergebnis zusammen
+ */
+case class Info(val text: String, status: Int, confidence: Double)
