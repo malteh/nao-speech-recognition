@@ -14,14 +14,10 @@ import helper.Audio
  */
 object Google {
 
-//  val ADDRESS = "http://www.google.com/speech-api/v1/recognize?lang=de-de&client=chromium"
-//  val USER_AGENT = "Mozilla/5.0"
-//  val CONTENT_TYPE = "audio/x-flac; rate="
-
-    val ADDRESS = "http://www.google.com/speech-api/v1/recognize?lang=de-de&client=chromium"
+  val ADDRESS = "http://www.google.com/speech-api/v1/recognize?lang=de-de&client=chromium"
   val USER_AGENT = "Mozilla/5.0"
   val CONTENT_TYPE = "audio/x-flac; rate="
-  
+
   /**
    * Der Name ist Programm
    * @param wavFile Pfad zu einer WAV, die erkannt werden soll
