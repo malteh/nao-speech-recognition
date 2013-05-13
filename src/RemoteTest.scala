@@ -26,8 +26,10 @@ object RemoteTest extends App {
 
         val info = recognition.Google.recognize("recordings/01.wav")
 
-        for (m <- Converter.convert(info.text)) noResponse ! m
+        //for (m <- Converter.convert(info.text)) noResponse ! m
 
+        //response ! Call('ALBehaviorManagerProxy, 'playDefaultProject)
+        noResponse ! Call('ALBehaviorManager, 'playDefaultProject)
       }
       case x => trace(x)
     }

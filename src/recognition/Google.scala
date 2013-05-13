@@ -14,10 +14,14 @@ import helper.Audio
  */
 object Google {
 
-  val ADDRESS = "http://www.google.com/speech-api/v1/recognize?lang=de-de&client=chromium"
+//  val ADDRESS = "http://www.google.com/speech-api/v1/recognize?lang=de-de&client=chromium"
+//  val USER_AGENT = "Mozilla/5.0"
+//  val CONTENT_TYPE = "audio/x-flac; rate="
+
+    val ADDRESS = "http://www.google.com/speech-api/v1/recognize?lang=de-de&client=chromium"
   val USER_AGENT = "Mozilla/5.0"
   val CONTENT_TYPE = "audio/x-flac; rate="
-
+  
   /**
    * Der Name ist Programm
    * @param wavFile Pfad zu einer WAV, die erkannt werden soll
@@ -32,9 +36,9 @@ object Google {
     val sampleRate = Audio.sampleRate(inputFile)
     val outputFile = new File(filename)
 
-    //println(
-    flacEncoder.encode(inputFile, outputFile)
-    //  )
+    println(
+      flacEncoder.encode(inputFile, outputFile) +
+        "\n" + sampleRate)
 
     // Datei an Google übertragen
 
@@ -48,9 +52,7 @@ object Google {
     connection.setDoOutput(true)
     connection.setUseCaches(false)
 
-    val file = new File(filename)
-
-    val fileInputStream = new FileInputStream(file)
+    val fileInputStream = new FileInputStream(outputFile)
 
     connection.setRequestProperty("User-Agent", USER_AGENT)
     connection.setRequestProperty("Content-Type", CONTENT_TYPE + sampleRate)

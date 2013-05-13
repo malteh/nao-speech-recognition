@@ -26,6 +26,8 @@ object Converter {
           case locale.rotateEyes => rotateEyes
           case locale.loose => loose
           case locale.stiff => stiff
+          case locale.kill => kill
+          case locale.wave => wave
           case _ => notRecognized(message)
         }
       }
@@ -38,10 +40,10 @@ object Converter {
    *  bool ALRobotPosture::goToPosture(const std::string postureName, const float speed)
    *  http://www.aldebaran-robotics.com/documentation/naoqi/motion/alrobotposture.html#term-predefined-postures
    */
-  def stand = Call('ALTextToSpeech, 'say, List(locale.stand)) :: Call('ALRobotPosture, 'goToPosture, List("Stand", 0.8f)) :: Nil
+  def stand = Call('ALTextToSpeech, 'say, List(locale.stand)) :: Call('ALRobotPosture, 'goToPosture, List("Stand", 1.0f)) :: Nil
 
   /** Erzeugt einen Call um den Nao hinsetzen zu lassen */
-  def sit = Call('ALTextToSpeech, 'say, List(locale.sit)) :: Call('ALRobotPosture, 'goToPosture, List("Sit", 0.8f)) :: Nil
+  def sit = Call('ALTextToSpeech, 'say, List(locale.sit)) :: Call('ALRobotPosture, 'goToPosture, List("Sit", 1.0f)) :: Nil
 
   /**
    * Erzeugt einen Call um den Nao einen Text sagen zu lassen
@@ -77,6 +79,13 @@ object Converter {
    * @param text Der nicht erkannte Text
    */
   def notRecognized(text: String) = say(locale.notRecognized(text))
+
+  /**
+   * Erzeugt einen Call um den Nao winken zu lassen
+   */
+  def wave = Call('ALTextToSpeech, 'say, List(locale.hello))::Call('ALBehaviorManagerProxy, 'preloadBehavior, List("Hello")) :: Call('ALBehaviorManagerProxy, 'runBehavior, List("Hello")) :: Nil
+
+  def kill = Call('ALRobotPosture, 'goToPosture, List("Stand", 0.8f)) :: Call('ALLeds, 'rotateEyes, List(0x00FF0000, 0.1f, 0.1f)) :: Call('ALTextToSpeech, 'say, List(locale.kill)) :: Nil
 
   /**
    * Beispielaufruf
