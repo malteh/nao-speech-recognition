@@ -40,7 +40,7 @@ object Google {
       flacEncoder.encode(inputFile, outputFile) +
         "\n" + sampleRate)
 
-    // Datei an Google übertragen
+    // Datei an Google Ã¼bertragen
 
     val url = new URL(ADDRESS)
 

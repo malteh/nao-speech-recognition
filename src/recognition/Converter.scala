@@ -53,24 +53,24 @@ object Converter {
   def say(text: String) = Call('ALTextToSpeech, 'say, List(text)) :: Nil
 
   /**
-   * Erzeugt einen Call um die Augen des Nao für 3 Sekunen in einer zufälligen Farbe aufleuchten zu lassen
+   * Erzeugt einen Call um die Augen des Nao fÃ¼r 3 Sekunden in einer zufÃ¤lligen Farbe aufleuchten zu lassen
    *  void ALLeds::randomEyes(const float& duration)
    */
   def randomEyes = Call('ALLeds, 'randomEyes, List(3.0f)) :: Nil
 
   /**
-   * Erzeugt einen Call um die Augen des Nao für 3 Sekunen in rot rotieren zu lassen
+   * Erzeugt einen Call um die Augen des Nao fÃ¼r 3 Sekunen in rot rotieren zu lassen
    *  void ALLeds::rotateEyes(const int& rgb, const float& timeForRotation, const float& totalDuration)
    */
   def rotateEyes = Call('ALLeds, 'rotateEyes, List(0x00FF0000, 1.0f, 3.0f)) :: Nil
 
   /**
-   * Erzeugt einen Call um den Körper des Nao locker zu schalten
+   * Erzeugt einen Call um den Kï¿½rper des Nao locker zu schalten
    */
   def loose = Call('ALMotion, 'setStiffnesses, List("Body", 0.0f)) :: Nil
 
   /**
-   * Erzeugt einen Call um den Körper des Nao steif zu schalten
+   * Erzeugt einen Call um den Kï¿½rper des Nao steif zu schalten
    */
   def stiff = Call('ALMotion, 'setStiffnesses, List("Body", 1.0f)) :: Nil
 

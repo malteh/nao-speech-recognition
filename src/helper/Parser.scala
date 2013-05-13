@@ -2,7 +2,7 @@ package helper
 
 import java.util.regex.Pattern
 
-/** Der Parser für die Antworten von Google auf die Audio-Aufnahmen */
+/** Der Parser fÃ¼r die Antworten von Google auf die Audio-Aufnahmen */
 object Parser {
   val ERR = -1
 
