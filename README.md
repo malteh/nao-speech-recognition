@@ -74,6 +74,7 @@ GUI Die das Aufnehmen der WAV Files vereinfacht.
 ## application.conf ##
 Beinhaltet die Konfigurationseinstellungen zur Kommunikation mit dem Aktoren System.
 Aktueller Inhalt:
+```scala
     remoting{
 	akka.loglevel # "DEBUG"
 	akka {
@@ -89,6 +90,7 @@ Aktueller Inhalt:
 	  }
 	}
 }
+```
 
 
 # README.md ##
