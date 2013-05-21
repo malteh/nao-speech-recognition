@@ -74,22 +74,22 @@ GUI Die das Aufnehmen der WAV Files vereinfacht.
 ## application.conf ##
 Beinhaltet die Konfigurationseinstellungen zur Kommunikation mit dem Aktoren System.
 Aktueller Inhalt:
-```scala
-    remoting{
-	akka.loglevel # "DEBUG"
-	akka {
-	  actor {
-		provider # "akka.remote.RemoteActorRefProvider"
-	  }	
-	  remote {
-		transport # "akka.remote.netty.NettyRemoteTransport"
-		netty {
-		  hostname # "192.168.1.140"
-		  port # 2551
-		}
-	  }
-	}
-}
+```scala<br />
+    remoting{<br />
+	akka.loglevel # "DEBUG"<br />
+	akka {<br />
+	  actor {<br />
+		provider # "akka.remote.RemoteActorRefProvider"<br />
+	  }	<br />
+	  remote {<br />
+		transport # "akka.remote.netty.NettyRemoteTransport"<br />
+		netty {<br />
+		  hostname # "192.168.1.140"<br />
+		  port # 2551<br />
+		}<br />
+	  }<br />
+	}<br />
+}<br />
 ```
 
 
