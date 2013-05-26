@@ -12,76 +12,52 @@ import java.io.InputStream
 import javax.sound.sampled.AudioInputStream
 import java.io.ByteArrayInputStream
 import java.io.DataOutputStream
+import java.io.RandomAccessFile
 
 object HttpRecorder {
 
   val url = new URL("http://192.168.0.100:8080/audio.wav")
 
   def main(args: Array[String]): Unit = {
-    test2
+    test2("recordings/tmp.wav")
 
   }
 
-  def test2() = {
-    val conn = url.openConnection();
-    val is = conn.getInputStream();
+  def test2(file: String) = {
+    val tmp = new File(file)
 
-    val tmp = new File("recordings/tmp.wav")
-
-    val outstream = new FileOutputStream(tmp);
+    val conn = url.openConnection
+    val is = conn.getInputStream
+    val outstream = new FileOutputStream(tmp)
     val buffer = new Array[Byte](4096)
     var len: Int = 0
-    val t = System.currentTimeMillis()
-    while (len >= 0 && System.currentTimeMillis() - t <= 5000) {
+    val t = System.currentTimeMillis
+    while (len >= 0 && System.currentTimeMillis - t <= 5000) {
       len = is.read(buffer)
       outstream.write(buffer, 0, len)
     }
-    outstream.close();
-    val inFile = AudioSystem.getAudioInputStream(tmp)
-    AudioSystem.write(inFile, AudioFileFormat.Type.WAVE, new File("recordings/01.wav"));
+    outstream.close
+    is.close
 
+    val raf = new RandomAccessFile(tmp, "rw");
+    raf.seek(0); // Go to byte at offset position 5.
+    raf.writeBytes("RIFF")
+    raf.write(0xb0)
+    raf.writeBytes("R")
+    raf.write(0x03)
+    raf.write(0x00)
+    raf.writeBytes("WAVEfmt ")
+    raf.write(Array[Byte](0x10, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01, 0x00))
+    raf.writeBytes("D")
+    raf.write(0xac)
+    raf.write(Array[Byte](0x00, 0x00))
+    raf.write(0x88)
+    raf.writeBytes("X")
+    raf.write(Array[Byte](0x01, 0x00, 0x02, 0x00, 0x10, 0x00))
+    raf.writeBytes("data")
+    raf.write(0x8c)
+    raf.writeBytes("R")
+    raf.write(Array[Byte](0x03, 0x00))
+    raf.close(); // Flush/save changes and close resource.
   }
-
-  def getAudioFormat: AudioFormat = {
-    val sampleRate = 44100.0F;
-    // 8000,11025,16000,22050,44100
-    val sampleSizeInBits = 16;
-    // 8,16
-    val channels = 1;
-    // 1,2
-    val signed = true;
-    // true,false
-    val bigEndian = false;
-    // true,false
-    new AudioFormat(sampleRate, sampleSizeInBits, channels, signed, bigEndian);
-  } // end getAudioFormat
-
-  def test() = {
-
-    val is = url.openStream()
-
-    val bis = new BufferedInputStream(is, 1024 * 1024);
-    val sound = AudioSystem.getAudioInputStream(bis);
-    val pcm = AudioSystem.getAudioInputStream(AudioFormat.Encoding.PCM_SIGNED, sound);
-    val ulaw = AudioSystem.getAudioInputStream(AudioFormat.Encoding.ULAW, pcm);
-
-    //val tempFile = File.createTempFile("wav", "tmp");
-    val tempFile = new File("recordings/tmp.wav")
-    AudioSystem.write(ulaw, AudioFileFormat.Type.WAVE, tempFile);
-
-    sound.close()
-    bis.close()
-    is.close()
-  }
-
-  /*
-
-
-
-
-
-return bytes;
-   * 
-   * */
-
 }

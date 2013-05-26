@@ -26,7 +26,7 @@ object Google {
   def recognize(wavFile: String): Info = {
     val filename = wavFile + ".flac"
 
-    // WAV konvertieren
+    // WAV konvertieren    
     val flacEncoder = new FLAC_FileEncoder()
     val inputFile = new File(wavFile)
     val sampleRate = Audio.sampleRate(inputFile)
