@@ -64,6 +64,7 @@ beinhaltet die Adresse und Header Informationen zum API Aufruf an die Google Spr
 * Das Byte[] wird anschlieﬂend nach UTF-8 Konvertiert.
 * Anschlieﬂend wird der String in seine Bestandteile zerlegt.
 * Und kann anschlieﬂend in der Klase Info auf die Methoden gemappt werden.
+
 ### Info.scala
 Fasst das Erkennungsergebnis zusammen
 ## recorder
