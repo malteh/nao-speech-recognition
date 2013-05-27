@@ -23,12 +23,12 @@ object Google {
    * @param wavFile Pfad zu einer WAV, die erkannt werden soll
    * @return Info(Erkannter Text, Status der Erkennung, Zufriedenheit der Erkennung)
    */
-  def recognize(wavFile: String): Info = {
+  def recognize(wavFile: File): Info = {
     val filename = wavFile + ".flac"
 
     // WAV konvertieren    
     val flacEncoder = new FLAC_FileEncoder()
-    val inputFile = new File(wavFile)
+    val inputFile = wavFile //new File(wavFile)
     val sampleRate = Audio.sampleRate(inputFile)
     val outputFile = new File(filename)
 
@@ -65,33 +65,39 @@ object Google {
       writer.write(buffer, 0, min)
     }
 
-    writer.flush()
-    writer.close()
-
     // Ergebnis von Google verarbeiten
+    try {
+      val reader: BufferedReader = new BufferedReader(new InputStreamReader(
+        connection.getInputStream, "UTF-8"))
 
-    val reader: BufferedReader = new BufferedReader(new InputStreamReader(
-      connection.getInputStream(), "UTF-8"))
+      val buf = new StringBuilder
 
-    val buf = new StringBuilder()
+      for (line <- reader.readLine) {
+        buf.append(line)
+      }
 
-    for (line <- reader.readLine()) {
-      buf.append(line)
+      val text = extractUtterance(buf.toString)
+      val status = extractStatus(buf.toString)
+      val confidence = extractConfidence(buf.toString)
+
+      writer.flush
+      writer.close
+      fileInputStream.close
+      reader.close
+
+      System.gc
+
+      outputFile.delete
+      Info(text, status, confidence)
+    } catch {
+      case _: Throwable => Info("", -1, 0)
     }
-
-    reader.close()
-
-    val text = extractUtterance(buf.toString())
-    val status = extractStatus(buf.toString())
-    val confidence = extractConfidence(buf.toString())
-
-    Info(text, status, confidence)
   }
 
   /**
    * Beispielaufruf
    */
   def main(args: Array[String]) = {
-    println(recognize("recordings/01.wav"))
+    println(recognize(new File("recordings/01.wav")))
   }
 }

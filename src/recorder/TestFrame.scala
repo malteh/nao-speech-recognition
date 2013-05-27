@@ -3,23 +3,23 @@ package recorder
 import javax.swing._
 
 class TestFrame extends JFrame("Hello World") {
-   import JFrame._;
+   import JFrame._
 
-   setDefaultLookAndFeelDecorated(true);
+   setDefaultLookAndFeelDecorated(true)
 
-   setDefaultCloseOperation(EXIT_ON_CLOSE);
+   setDefaultCloseOperation(EXIT_ON_CLOSE)
 
-   val button = new JButton("Hello world");
-   button addActionListener Print("Hello world");
-   getContentPane() add button;
+   val button = new JButton("Hello world")
+   button addActionListener Print("Hello world")
+   getContentPane() add button
 
-   pack;
-   setSize(400, 300);
-   setVisible(true);
+   pack
+   setSize(400, 300)
+   setVisible(true)
    
-   import java.awt.event._;
+   import java.awt.event._
    
-   case class Print(msg : String) extends ActionListener with Application {
+   case class Print(msg : String) extends ActionListener {
       def actionPerformed(e : ActionEvent) =
          Console println msg
    }
