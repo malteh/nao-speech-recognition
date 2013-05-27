@@ -30,7 +30,6 @@ object RemoteTest extends App {
         trace(response)
         trace(noResponse)
         trace(vision)
-<<<<<<< HEAD
         
 //        for (m <- Converter.say("ok")) noResponse ! m
         //noResponse ! Call('ALSoundProcessing,'stop,List())
@@ -49,12 +48,7 @@ object RemoteTest extends App {
           for (fu <- futures_command) Await.result(fu,timeout.duration)
           f.delete
         }
-=======
-
-        val info = recognition.Google.recognize("recordings/01.wav")
-        for (m <- Converter.convert(info.text)) noResponse ! m
-
->>>>>>> 6c8d4e84e6c5503b3071177ba841d76700324c28
+        
         //response ! Call('ALBehaviorManager, 'getInstalledBehaviors)
         //response ! Call('ALBehaviorManager, 'runBehavior, List("SitDown"))
       }
