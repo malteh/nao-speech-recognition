@@ -74,6 +74,11 @@ Test Anwendung zum erzeugen von WAV Files aus Java heraus. Es wird das Default M
 GUI Die das Aufnehmen der WAV Files vereinfacht.
 ### HttpRecorder.scala
 Dieses Beispielprogramm ließt einen WAV Stream von einer definierten IP Adresse. Als Quelle dient zu Testzwecken ein Android Smartphone auf dem die App "IPWebcam" aus dem Google Play Store. Diese App kann einen Audio/Video Stream liefern der dann in dieser Anwendung verarbeitet wird. 
+### GStreamer.scala
+Beinhaltet die GStreamer Schnitstelle wie sie aus dem Nao geliefert wird. Dies ist die Low Level Schnitstelle. ToDo: Es sollte der Actor verwendet werden der dann den gewünschten Stream weiterleitet. Der Nao dient dabei als Client der sich auf einem GStreamer Server verbindet. Der Verbindungsaufbau findet bereits beim start von naoqi statt. Vorraussetzungen für den Server sind neben gstreamer-0.10 und dieser Datei folgende Pakete: 
+<code>sudo apt-get install libgstreamer-plugins-base0.10-dev libgstreamer0.10-dev libglib2.0-dev</code>
+Diese werden für die GStreamer-Java API benötigt.
+
 ## application.conf
 Beinhaltet die Konfigurationseinstellungen zur Kommunikation mit dem Aktoren System.
 Aktueller Inhalt: Example.conf
