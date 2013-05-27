@@ -1,5 +1,9 @@
 package recognition
 
+import recorder.HttpRecorder
+
 object Test extends App {
-println(Google.recognize("recordings/01.wav"))
+  val file = "recordings/01.wav"
+  HttpRecorder.test2(file)
+  println(Google.recognize(file))
 }

@@ -1,6 +1,6 @@
 *.class
 *.log
-
+.cache
 # sbt specific
 dist/*
 target/
@@ -14,3 +14,4 @@ project/plugins/project/
 
 # Ignore GEdit Backup Files
 .md~
+
