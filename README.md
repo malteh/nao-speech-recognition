@@ -15,36 +15,18 @@ Mittels <code>git clone</code> das Repo Klonen.
 Es handelt sich um ein vollständiges Scala Eclipse Projekt welches mittels Rechtsklick, General, Existing Project into Workspace direkt importiert werden kann.
 
 Ordnerstruktur:
-<<<<<<< HEAD
-## value ##
-### Hawactormsg.proto ###
-Beinhaltet das Protobuf Nachrichtenformat für die Kommunikation mit den Actoren.
-### HawCam.proto ###
-Beinhaltet das Protobuf Nachrichtenformat für die Kommunikation mit den Kamaras des Roboters
-# lib #
-=======
 ## value
 ### Hawactormsg.proto
 Beinhaltet das Protobuf Nachrichtenformat für die Kommunikation mit den Actoren.
 ### HawCam.proto
 Beinhaltet das Protobuf Nachrichtenformat für die Kommunikation mit den Kamaras des Roboters
 # lib
->>>>>>> 6c8d4e84e6c5503b3071177ba841d76700324c28
 Beinhaltet die externen Pakete die von diesem Projekt benutzt werden.
 * AKKA Aktoren Framework, benötigt für Kommunikation
 * naogateway, benötigt für Kommunikation
 * protobuf, benötigt für Kommunikation
 * javaFlacEncoder, konvertiert die WAV Files in FLAC zur Reduktion der Datenmenge, wird außerdem von der Spracherkennungs-API als Eingabe benötigt
 
-<<<<<<< HEAD
-# recordings #
-Beinhaltet die Aufnahmedatei wie sie von dem Mikrophon zurück geliefrt wurde. Die Aufnahme wird als WAV gespeichert und anschließend von der FlacEncoder Bibliothek nach FLAC umgewandelt.
-
-# src #
-Beinhaltet die eigentlichen Scala Sourcen
-## helper ##
-### Audio.scala ###
-=======
 # recordings
 Beinhaltet die Aufnahmedatei wie sie von dem Mikrophon zurück geliefrt wurde. Die Aufnahme wird als WAV gespeichert und anschließend von der FlacEncoder Bibliothek nach FLAC umgewandelt.
 
@@ -52,27 +34,11 @@ Beinhaltet die Aufnahmedatei wie sie von dem Mikrophon zurück geliefrt wurde. Di
 Beinhaltet die eigentlichen Scala Sourcen
 ## helper
 ### Audio.scala
->>>>>>> 6c8d4e84e6c5503b3071177ba841d76700324c28
 <code>sampleRate(wavFile: File)</code>
    * Liest die Sample Rate aus eimer WAV aus
    * @param wavFile Die WAV-Datei
    * @return Die Sample Rate
 
-<<<<<<< HEAD
-### Parser.scala ###
-Verarbeitet die JSON Antwort die von der Google API zurückgeliefert wird.
-## localiztion ##
-### Locale.scala ###
-Auflistung aller Befehle die mittels Sprachbefehlen ausgeführt werden können.
-
-Die Klasse "De" ist die Abbildung der Deutschen Befehle auf die allgemeinen.
-## naogateway.value ##
-Nachrichtenformate für Protobuf
-## recognition ##
-### Converter.scala ###
-Mapping Funktionalität von allgemeinen Begriffen auf konkrete Methode die dann im unteren Block implementiert ist.
-### Google.scala ###
-=======
 ### Parser.scala
 Verarbeitet die JSON Antwort die von der Google API zurückgeliefert wird.
 ## localiztion
@@ -86,7 +52,6 @@ Nachrichtenformate für Protobuf
 ### Converter.scala
 Mapping Funktionalität von allgemeinen Begriffen auf konkrete Methode die dann im unteren Block implementiert ist.
 ### Google.scala
->>>>>>> 6c8d4e84e6c5503b3071177ba841d76700324c28
 beinhaltet die Adresse und Header Informationen zum API Aufruf an die Google Spracherkennung.
 
 
@@ -99,44 +64,6 @@ beinhaltet die Adresse und Header Informationen zum API Aufruf an die Google Spr
 * Das Byte[] wird anschließend nach UTF-8 Konvertiert.
 * Anschließend wird der String in seine Bestandteile zerlegt.
 * Und kann anschließend in der Klase Info auf die Methoden gemappt werden.
-<<<<<<< HEAD
-### Info.scala ###
-Fasst das Erkennungsergebnis zusammen
-## recorder ##
-### AudioRecorder02.scala ###
-Test Anwendung zum erzeugen von WAV Files aus Java heraus. Es wird das Default Mikrofone auf der Host-Maschine benutzt.
-### TestFrame.scala ###
-GUI Die das Aufnehmen der WAV Files vereinfacht.
-## application.conf ##
-Beinhaltet die Konfigurationseinstellungen zur Kommunikation mit dem Aktoren System.
-Aktueller Inhalt:
-`
-    remoting
-    {
-    akka.loglevel # "DEBUG"
-        akka
-        {
-            actor 
-            {
-                provider # "akka.remote.RemoteActorRefProvider"
-            }	
-            remote 
-                {
-                transport # "akka.remote.netty.NettyRemoteTransport"
-                netty 
-                    {
-                    hostname # "192.168.1.140"
-                    port # 2551
-                    }
-                }
-        }
-    }
-`
-
-
-
-# README.md ##
-=======
 
 ### Info.scala
 Fasst das Erkennungsergebnis zusammen
@@ -152,7 +79,6 @@ Beinhaltet die Konfigurationseinstellungen zur Kommunikation mit dem Aktoren Sys
 Aktueller Inhalt: Example.conf
 
 # README.md
->>>>>>> 6c8d4e84e6c5503b3071177ba841d76700324c28
 Diese Datei.
 
 
