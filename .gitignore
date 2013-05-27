@@ -13,5 +13,4 @@ project/plugins/project/
 .scala_dependencies
 
 # Ignore GEdit Backup Files
-.md~
-
+.*~
