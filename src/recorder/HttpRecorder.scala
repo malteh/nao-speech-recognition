@@ -16,12 +16,10 @@ import java.io.RandomAccessFile
 
 object HttpRecorder {
 
-<<<<<<< HEAD
   val url = new URL("http://192.168.1.146:8080/audio.wav")
 
   def main(args: Array[String]): Unit = {
     record(5)
-
   }
 
   def record(seconds:Int):File = {
@@ -30,39 +28,22 @@ object HttpRecorder {
     raf1.seek(0)
     raf1.write(0)
     raf1.close
-=======
-  val url = new URL("http://192.168.0.100:8080/audio.wav")
 
-  def main(args: Array[String]): Unit = {
-    test2("recordings/tmp.wav")
-
-  }
-
-  def test2(file: String) = {
-    val tmp = new File(file)
-
->>>>>>> 6c8d4e84e6c5503b3071177ba841d76700324c28
     val conn = url.openConnection
     val is = conn.getInputStream
     val outstream = new FileOutputStream(tmp)
     val buffer = new Array[Byte](4096)
     var len: Int = 0
     val t = System.currentTimeMillis
-<<<<<<< HEAD
+
     while (len >= 0 && System.currentTimeMillis - t <= seconds * 1000) {
-=======
-    while (len >= 0 && System.currentTimeMillis - t <= 5000) {
->>>>>>> 6c8d4e84e6c5503b3071177ba841d76700324c28
       len = is.read(buffer)
       outstream.write(buffer, 0, len)
     }
     outstream.close
     is.close
 
-<<<<<<< HEAD
     // mieser Hack -->
-=======
->>>>>>> 6c8d4e84e6c5503b3071177ba841d76700324c28
     val raf = new RandomAccessFile(tmp, "rw");
     raf.seek(0); // Go to byte at offset position 5.
     raf.writeBytes("RIFF")
@@ -82,14 +63,10 @@ object HttpRecorder {
     raf.write(0x8c)
     raf.writeBytes("R")
     raf.write(Array[Byte](0x03, 0x00))
-<<<<<<< HEAD
     raf.close // Flush/save changes and close resource.
     // <-- mieser Hack
     
     System.gc
     tmp
-=======
-    raf.close(); // Flush/save changes and close resource.
->>>>>>> 6c8d4e84e6c5503b3071177ba841d76700324c28
   }
 }
