@@ -24,19 +24,23 @@ object GStreamer extends App {
 
   //val naoActor = system.actorFor("akka://naogateway@192.168.1.100:2550/user/hanna")
   //system.actorOf(Props[GStreamActor])
-  val gst = Gst.init("VideoPlayer",args)
-  val pipe = new Pipeline();
-  val src = ElementFactory.make("souphttpsrc","souphttpsrc")
-  src.set("location","http://192.168.22:8080/video")
-  val jpg = ElementFactory.make("jpegdec", "jpegdec")
-  
+  val gst = Gst.init("AudioSaver",args)
+  //val pipe = new Pipeline();
+  //val src = ElementFactory.make("souphttpsrc","souphttpsrc")
+  //src.set("location","http://192.168.22:8080/video")
+  //val jpg = ElementFactory.make("jpegdec", "jpegdec")
+
+  val pipe = Pipeline.launch("gst-launch-0.10 tcpserversrc host=192.168.1.108 port=3000 ! oggdemux ! vorbisdec ! audioconvert ! "audio/x-raw-int", channels=1, width=16, depth=16, signed=TRUE, rate=16000, endianess=1234 ! filesink name=filesink");
+  pipe.getElementByName("filesink").set("location", "/tmp/bula.wav");
+  pipe.play();
+
   //"http://192.168.178.22:8080/video");
-  val sink = ElementFactory.make("autovideosink", "autovideosink");
-        pipe.addMany(src, jpg, sink);
-        src.link(sink);
-        pipe.setState(State.PLAYING);
-        Gst.main();
-        pipe.setState(State.NULL);
+  //val sink = ElementFactory.make("autovideosink", "autovideosink");
+  //      pipe.addMany(src, jpg, sink);
+  //      src.link(sink);
+  //      pipe.setState(State.PLAYING);
+  //      Gst.main();
+  //      pipe.setState(State.NULL);
   
       
           def trace(a: Any) = System.out.println(a.toString)
