@@ -1,6 +1,7 @@
 package recognition
 
 import java.io._
+
 import java.net.HttpURLConnection
 import java.net.URL
 import helper.Parser._
@@ -12,7 +13,7 @@ import helper.Audio
 /**
  * Benutzt Googles Chrome Speech API um WAV-Files in Text zu konvertieren
  */
-object Google {
+object Recognizer {
 
   val ADDRESS = "http://www.google.com/speech-api/v1/recognize?lang=de-de&client=chromium"
   val USER_AGENT = "Mozilla/5.0"
