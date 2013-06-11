@@ -19,37 +19,17 @@ public class Server {
 	Process p;
 	public LinkedList<byte[]> buffers = new LinkedList<>();
 
+	public static byte[] header = new byte[] {
+		'R', 'I', 'F', 'F', 0x30, 0x3a, 0x05, 0x00, 'W', 'A', 'V', 'E', 'f', 'm', 't', ' ',
+		0x10,0x00,0x00,0x00,0x01,0x00,0x01,0x00, (byte)0x80, 0x3e, 0x00, 0x00, 0x00, 0x7d, 0x00, 0x00,
+		0x20,0x00,0x10,0x00, 'd', 'a', 't', 'a', 0x0c, 0x3a, 0x05, 0x00
+	};
+	
 	public static void main(String[] args) throws Exception {
 		new Server().run();
 	}
 	
 	public void start() throws IOException {
-		/*
-		//gst-launch-0.10 tcpserversrc host=192.168.1.108 port=3000 ! oggdemux ! vorbisdec ! audioconvert ! queue !  "audio/x-raw-int", channels=1, width=16, depth=16, signed=TRUE, rate=16000, endianess=1234 ! pulsesink
-		//gst-launch-0.10 tcpserversrc host=192.168.1.108 port=3000 ! oggdemux ! vorbisdec ! audioconvert ! \"audio/x-raw-int\", channels=1, width=16, depth=16, signed=TRUE, rate=16000, endianess=1234 ! appsink name=\"appsink\"
-		Gst.init("Server", new String[] {});
-		LinkedList<Element> e = new LinkedList<Element>();
-		e.add(ElementFactory.make("tcpserversrc", "tcpserversrc"));
-		e.add(ElementFactory.make("oggdemux", "oggdemux"));
-		e.add(ElementFactory.make("vorbisdec", "vorbisdec"));
-		e.add(ElementFactory.make("audioconvert", "audioconvert"));
-		e.add(ElementFactory.make("capsfilter", "capsfilter"));
-		e.get(0).set("host", "192.168.1.108");
-		e.get(0).set("port", "3000");
-		e.get(4).setCaps(Caps.fromString("\"audio/x-raw-int\", channels=1, width=16, depth=16, signed=TRUE, rate=16000, endianess=1234"));
-		appSink = (AppSink) ElementFactory.make("appsink", "appsink");
-		e.add(appSink);
-		Pipeline pipe = new Pipeline();
-		pipe.addMany(e.get(0), e.get(1), e.get(2), e.get(3), e.get(4), e.get(5));
-		Element.linkMany(e.get(0), e.get(1), e.get(2), e.get(3), e.get(4), e.get(5));
-		//pipe.add(appSink);
-		//pipe = Pipeline.launch("tcpserversrc host=192.168.1.108 port=3000 ! oggdemux ! vorbisdec ! audioconvert ! \"audio/x-raw-int\", channels=1, width=16, depth=16, signed=TRUE, rate=16000, endianess=1234");
-		//pipe.getElementByName("filesink").set("location", "/tmp/bula.wav");
-		//appSink = (AppSink) pipe.getElementByName("appsink");
-		//appSink = (AppSink) pipe.getElementByName("appsink");
-		pipe.play();
-		pipe.setState(State.PLAYING);
-		*/
 		p = Runtime.getRuntime().exec("gst-launch-0.10 tcpserversrc host=192.168.1.108 port=3000 ! oggdemux ! vorbisdec ! audioconvert ! fdsink");
 		is = p.getInputStream();
 		er = new BufferedReader(new InputStreamReader(p.getErrorStream()));
@@ -78,20 +58,20 @@ public class Server {
 	}
 	
 	public void drop() throws IOException {
-		System.out.println("Reading buffer from AppSink");
+		//System.out.println("Reading buffer from AppSink");
 		byte[] b = new byte[5440];
 		int bs = is.read(b);
 		if (bs == -1)
 			exit();
 		//Buffer buffer = appSink.pullBuffer();
-		System.out.println("Successfully read buffer from AppSink");
+		//System.out.println("Successfully read buffer from AppSink");
 		synchronized(buffers) {
 			while (buffers.size() > 60)
 				buffers.pop();
 			buffers.add(Arrays.copyOf(b, bs));
 			//buffers.add(buffer.getByteBuffer());
 		}
-		System.out.println("Buffer size is now " + buffers.size());
+		System.out.println("Buffer size is now " + buffers.size() + ", size of last buffer: " + bs);
 	}
 
 	public void run() throws Exception {
@@ -136,11 +116,16 @@ public class Server {
 	public void sendData(DataOutputStream out, int param) {
 		try {
 			LinkedList<byte[]> buf = new LinkedList<>();
+			buf.add(header);
+			byte[] sine = new byte[] {0x00,0x00,0x11,0x11,0x22,0x22,0x33,0x33,0x44,0x44,0x55,0x55,0x66,0x66,0x77,0x77,(byte)0x88,(byte)0x88,(byte)0x99,(byte)0x99,(byte)0xaa,(byte)0xaa,(byte)0xbb,(byte)0xbb,(byte)0xcc,(byte)0xcc,(byte)0xdd,(byte)0xdd,(byte)0xee,(byte)0xee,(byte)0xff,(byte)0xff};
+			for (int i = 0; i < 1000; i++) {
+				buf.add(sine);
+			}
 			synchronized(buffers) {
 				int offset = buffers.size() - param;
 				try {
 					for (int i = offset; i < buffers.size(); i++)
-						buf.push(buffers.get(i));
+						buf.add(buffers.get(i));
 				} catch (Exception e) {
 					System.out.println("Requested more buffers than available.");
 				}
