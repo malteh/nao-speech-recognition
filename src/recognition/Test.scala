@@ -8,3 +8,4 @@ object Test extends App {
   println(Recognizer.recognize(f))
   f.delete
 }
+

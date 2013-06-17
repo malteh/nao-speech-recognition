@@ -14,6 +14,10 @@ Installation
 Mittels <code>git clone</code> das Repo Klonen.
 Es handelt sich um ein vollständiges Scala Eclipse Projekt welches mittels Rechtsklick, General, Existing Project into Workspace direkt importiert werden kann.
 
+ToDo:
+Der Nao hat einen eingebauten g-streamer0.10 Client. Um diesen  zu nutzen, benötigt man einen g-streamer Server den man auf einem beliebigen Rechner innerhalb des NAO Netzwerkes starten muss. Anschließend kann man Naoqi neu starten. Der Naoqi Prozess sendet nun einen dauerhaften Audio stream an den g-streamer. Mittels des g-streamer Java Framework, welches im Projekt bereits integriert ist, lässt sich dieser Server auch aus Java / Scala heraus starten. Anschließend kann über eine TCP Socket Verbindung der Stream Abgegriffen werden. Dies funktioniert leider jedoch noch nicht.
+
+
 Ordnerstruktur:
 ## value
 ### Hawactormsg.proto
