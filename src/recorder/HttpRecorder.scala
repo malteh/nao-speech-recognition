@@ -23,7 +23,7 @@ object HttpRecorder {
   }
 
   def record(seconds:Int):File = {
-    val tmp = new File("recordings/tmp.wav")//File.createTempFile("tmp", ".wav")
+    val tmp = new File("recordings/tmp.wav")
     val raf1 = new RandomAccessFile(tmp, "rw")
     raf1.seek(0)
     raf1.write(0)

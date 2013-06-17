@@ -34,17 +34,27 @@ object RemoteTest extends App {
         implicit val timeout = Timeout(20 seconds)
         for (i <- 1 to 10) {
           // auf Rückmeldung warten
-          val futures_ok = for (m <- CommandMap.map("sage ok")) yield response ? m
-          for (fu <- futures_ok) Await.result(fu, timeout.duration)
+          for (m <- CommandMap.map("sage ok")) {
+            val f = response ? m
+            Await.result(f, timeout.duration)
+          }
+          //val futures_ok = for (m <- CommandMap.map("sage ok")) yield response ? m
+          //for (fu <- futures_ok) Await.result(fu, timeout.duration)
 
           // Aufzeichnung starten
           val f = HttpRecorder.record(3)
           val info = Recognizer.recognize(f)
+
           // auf Rückmeldung warten
           println(info.text)
           val futures_command = for (m <- CommandMap.map(info.text)) yield response ? m
+          for (m <- CommandMap.map(info.text)) {
+            val f = response ? m
+            Await.result(f, timeout.duration)
+          }
           //val futures_command = for (m <- Converter.convert(info.text)) yield response ? m
-          for (fu <- futures_command) Await.result(fu, timeout.duration)
+          //for (fu <- futures_command) Await.result(fu, timeout.duration)
+
           f.delete
         }
       }
