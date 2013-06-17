@@ -29,8 +29,8 @@
 	<classpathentry kind="lib" path="lib/akka/slf4j-api-1.7.2.jar"/>
 	<classpathentry kind="lib" path="lib/akka/uncommons-maths-1.2.2a.jar"/>
 	<classpathentry kind="lib" path="lib/akka/zeromq-scala-binding_2.10-0.0.7.jar"/>
-	<classpathentry kind="lib" path="/home/darius/uni_git/nao-speech-recognition/lib/gstreamer-java-1.5.jar"/>
-	<classpathentry kind="lib" path="/home/darius/uni_git/nao-speech-recognition/lib/platform-3.5.2.jar"/>
-	<classpathentry kind="lib" path="/home/darius/uni_git/nao-speech-recognition/lib/jna-3.2.4.jar"/>
+	<classpathentry kind="lib" path="lib/gstreamer-java-1.5.jar"/>
+	<classpathentry kind="lib" path="lib/jna-3.2.4.jar"/>
+	<classpathentry kind="lib" path="lib/platform-3.5.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
