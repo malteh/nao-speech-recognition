@@ -37,7 +37,7 @@ object Recognizer {
       flacEncoder.encode(inputFile, outputFile) +
         "\n" + sampleRate)
 
-    // Datei an Google übertragen
+    // Datei an Google uebertragen
 
     val url = new URL(ADDRESS)
 
