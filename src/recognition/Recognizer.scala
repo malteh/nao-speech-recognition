@@ -102,3 +102,8 @@ object Recognizer {
     println(recognize(new File("recordings/01.wav")))
   }
 }
+
+/**
+ * Fasst das Erkennungsergebnis zusammen
+ */
+case class Info(val text: String, status: Int, confidence: Double)

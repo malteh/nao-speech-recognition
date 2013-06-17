@@ -3,7 +3,7 @@ package recognition
 import naogateway.value.NaoMessages._
 import naogateway.value.NaoMessages.Conversions._
 
-object CommandMap extends App {
+object CommandMap {
 
   def map(textToMap: String) = {
 
@@ -26,7 +26,9 @@ object CommandMap extends App {
     }
   }
 
-  println(map("locker"))
-  println(map("aufstehen"))
-  println(map("sage hallo"))
+  def main(args: Array[String]) = {
+    println(map("locker"))
+    println(map("aufstehen"))
+    println(map("sage hallo"))
+  }
 }
