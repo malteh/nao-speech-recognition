@@ -17,39 +17,13 @@ public class Server {
 	InputStream is;
 	BufferedReader er;
 	Process p;
-	public LinkedList<byte[]> buffers = new LinkedList<>();
+	public LinkedList<byte[]> buffers = new LinkedList<byte[]>();
 
 	public static void main(String[] args) throws Exception {
 		new Server().run();
 	}
 	
 	public void start() throws IOException {
-		/*
-		//gst-launch-0.10 tcpserversrc host=192.168.1.108 port=3000 ! oggdemux ! vorbisdec ! audioconvert ! queue !  "audio/x-raw-int", channels=1, width=16, depth=16, signed=TRUE, rate=16000, endianess=1234 ! pulsesink
-		//gst-launch-0.10 tcpserversrc host=192.168.1.108 port=3000 ! oggdemux ! vorbisdec ! audioconvert ! \"audio/x-raw-int\", channels=1, width=16, depth=16, signed=TRUE, rate=16000, endianess=1234 ! appsink name=\"appsink\"
-		Gst.init("Server", new String[] {});
-		LinkedList<Element> e = new LinkedList<Element>();
-		e.add(ElementFactory.make("tcpserversrc", "tcpserversrc"));
-		e.add(ElementFactory.make("oggdemux", "oggdemux"));
-		e.add(ElementFactory.make("vorbisdec", "vorbisdec"));
-		e.add(ElementFactory.make("audioconvert", "audioconvert"));
-		e.add(ElementFactory.make("capsfilter", "capsfilter"));
-		e.get(0).set("host", "192.168.1.108");
-		e.get(0).set("port", "3000");
-		e.get(4).setCaps(Caps.fromString("\"audio/x-raw-int\", channels=1, width=16, depth=16, signed=TRUE, rate=16000, endianess=1234"));
-		appSink = (AppSink) ElementFactory.make("appsink", "appsink");
-		e.add(appSink);
-		Pipeline pipe = new Pipeline();
-		pipe.addMany(e.get(0), e.get(1), e.get(2), e.get(3), e.get(4), e.get(5));
-		Element.linkMany(e.get(0), e.get(1), e.get(2), e.get(3), e.get(4), e.get(5));
-		//pipe.add(appSink);
-		//pipe = Pipeline.launch("tcpserversrc host=192.168.1.108 port=3000 ! oggdemux ! vorbisdec ! audioconvert ! \"audio/x-raw-int\", channels=1, width=16, depth=16, signed=TRUE, rate=16000, endianess=1234");
-		//pipe.getElementByName("filesink").set("location", "/tmp/bula.wav");
-		//appSink = (AppSink) pipe.getElementByName("appsink");
-		//appSink = (AppSink) pipe.getElementByName("appsink");
-		pipe.play();
-		pipe.setState(State.PLAYING);
-		*/
 		p = Runtime.getRuntime().exec("gst-launch-0.10 tcpserversrc host=192.168.1.108 port=3000 ! oggdemux ! vorbisdec ! audioconvert ! fdsink");
 		is = p.getInputStream();
 		er = new BufferedReader(new InputStreamReader(p.getErrorStream()));
@@ -135,7 +109,7 @@ public class Server {
 	
 	public void sendData(DataOutputStream out, int param) {
 		try {
-			LinkedList<byte[]> buf = new LinkedList<>();
+			LinkedList<byte[]> buf = new LinkedList<byte[]>();
 			synchronized(buffers) {
 				int offset = buffers.size() - param;
 				try {
