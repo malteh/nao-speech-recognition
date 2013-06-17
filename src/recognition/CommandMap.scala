@@ -12,6 +12,9 @@ object CommandMap {
       case h :: t => (h, t.mkString(" "))
     }
 
+    // Hier müssen die neuen Befehle hinzugefügt werden
+    // z.B. case "test" => Call('ALTextToSpeech, 'say, List("test")) :: Nil
+    // API für den Nao auf http://www.aldebaran-robotics.com/documentation/naoqi/index.html
     command match {
       case "aufstehen" => Call('ALRobotPosture, 'goToPosture, List("Stand", 1.0f)) :: Nil
       case ("sage", textToSay: String) => Call('ALTextToSpeech, 'say, List(textToSay)) :: Nil

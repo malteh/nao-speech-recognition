@@ -31,9 +31,6 @@ object RemoteTest extends App {
         trace(noResponse)
         trace(vision)
 
-        //        for (m <- Converter.say("ok")) noResponse ! m
-        //noResponse ! Call('ALSoundProcessing,'stop,List())
-
         implicit val timeout = Timeout(20 seconds)
         for (i <- 1 to 10) {
           // auf Rückmeldung warten
@@ -50,9 +47,6 @@ object RemoteTest extends App {
           for (fu <- futures_command) Await.result(fu, timeout.duration)
           f.delete
         }
-
-        //response ! Call('ALBehaviorManager, 'getInstalledBehaviors)
-        //response ! Call('ALBehaviorManager, 'runBehavior, List("SitDown"))
       }
       case x => trace(x)
     }
