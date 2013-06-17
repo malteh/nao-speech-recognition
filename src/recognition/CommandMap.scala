@@ -19,7 +19,7 @@ object CommandMap {
       case "aufstehen" => Call('ALRobotPosture, 'goToPosture, List("Stand", 1.0f)) :: Nil
       case ("sage", textToSay: String) => Call('ALTextToSpeech, 'say, List(textToSay)) :: Nil
       case "hinsetzen" => Call('ALRobotPosture, 'goToPosture, List("Sit", 1.0f)) :: Nil
-      case "augen zufällig" => Call('ALLeds, 'randomEyes, List(3.0f)) :: Nil
+      case "augen zufÃ¤llig" => Call('ALLeds, 'randomEyes, List(3.0f)) :: Nil
       case "augen rotieren" => Call('ALLeds, 'rotateEyes, List(0x00FF0000, 1.0f, 3.0f)) :: Nil
       case "schlafen" => Call('ALTextToSpeech, 'say, List("immer locker bleiben")) :: Call('ALMotion, 'setStiffnesses, List("Body", 0.0f)) :: Nil
       case "unbeweglich" => Call('ALMotion, 'setStiffnesses, List("Body", 1.0f)) :: Nil
