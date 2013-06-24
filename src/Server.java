@@ -29,10 +29,8 @@ public class Server {
 	}
 
 	public void start() throws IOException {
-		p = Runtime
-				.getRuntime()
-				.exec("gst-launch-0.10 tcpserversrc host=192.168.1.108 port=3000 ! oggdemux ! vorbisdec ! audioconvert ! fdsink");
 
+		p = Runtime.getRuntime().exec("gst-launch-0.10 tcpserversrc host=192.168.1.108 port=3000 ! oggdemux ! vorbisdec ! audioconvert ! fdsink");
 		is = p.getInputStream();
 		er = new BufferedReader(new InputStreamReader(p.getErrorStream()));
 		new Thread() {
@@ -61,13 +59,11 @@ public class Server {
 	}
 
 	public void drop() throws IOException {
-
 		byte[] b = new byte[5440];
 		int bs = is.read(b);
 		if (bs == -1)
 			exit();
 		synchronized (buffers) {
-
 			while (buffers.size() > 60)
 				buffers.pop();
 			buffers.add(Arrays.copyOf(b, bs));
@@ -129,7 +125,6 @@ public class Server {
 				buf.add(sine);
 			}
 			synchronized (buffers) {
-
 				int offset = buffers.size() - param;
 				try {
 					for (int i = offset; i < buffers.size(); i++)
