@@ -99,7 +99,7 @@ object Recognizer {
    * Beispielaufruf
    */
   def main(args: Array[String]) = {
-    println(recognize(new File("recordings/01.wav")))
+    println(recognize(new File("recordings/tmp.wav")))
   }
 }
 

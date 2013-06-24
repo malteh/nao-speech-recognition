@@ -19,7 +19,7 @@ object RemoteTest extends App {
   val config = ConfigFactory.load()
   val system = ActorSystem("remoting", config.getConfig("remoting").withFallback(config))
 
-  val naoActor = system.actorFor("akka://naogateway@192.168.1.100:2550/user/hanna")
+  val naoActor = system.actorFor("akka://naogateway@192.168.1.100:2552/user/nila")
   system.actorOf(Props[MyResponseTestActor])
 
   class MyResponseTestActor extends Actor {
@@ -45,7 +45,7 @@ object RemoteTest extends App {
 
           // auf Rueckmeldung warten
           println(info.text)
-          val futures_command = for (m <- CommandMap.map(info.text)) yield response ? m
+          
           for (m <- CommandMap.map(info.text)) {
             val f = response ? m
             Await.result(f, timeout.duration)
