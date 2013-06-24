@@ -24,8 +24,13 @@ public class Server {
 			0x00, 0x7d, 0x00, 0x00, 0x20, 0x00, 0x10, 0x00, 'd', 'a', 't', 'a',
 			0x0c, 0x3a, 0x05, 0x00 };
 	
-	public static void main(String[] args) throws Exception {
-		new Server().run();
+	public static void main(String[] args) {
+		try {
+			new Server().run();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void start() throws IOException {
